@@ -15,8 +15,6 @@ namespace Hydac
             new Employe { id = 3, name = "Carsten Nielsen" }
             };
 
-            public string test;
-
 
             Console.WriteLine("Velkommen");
             Console.WriteLine("Tast 1 Check ind");
