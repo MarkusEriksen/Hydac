@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 
 namespace Hydac
 {
@@ -14,6 +15,7 @@ namespace Hydac
             new Employe { id = 3, name = "Carsten Nielsen" }
             };
 
+            public string test;
 
 
             Console.WriteLine("Velkommen");
