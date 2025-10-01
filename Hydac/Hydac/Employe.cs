@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace Hydac
 {
-    internal class Employe
+    public class Employe
     {
-        public string name { get; set; }
-        public int id { get; set; }
+        public static Employe[] employes = new Employe[]
+            {
+            new Employe { id = 1, name = "Anders Andersen" },
+            new Employe { id = 2, name = "Birgitte Jensen" },
+            new Employe { id = 3, name = "Carsten Nielsen" }
+            };
+        public string name { get; private set; }
+        public int id { get; private set; }
     }
 
     
-    }
+}
 
