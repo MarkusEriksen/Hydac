@@ -8,7 +8,8 @@ namespace Hydac
         static void Main(string[] args)
         {
             Registrering reg = new Registrering();
-            while (true) {
+            while (true)
+            {
                 Console.Clear();
                 Console.WriteLine("Velkommen");
                 Console.ReadLine();
@@ -16,8 +17,12 @@ namespace Hydac
 
                 reg.Register();
 
-            }
+                StreamWriter sw = new StreamWriter("Data.txt", true);
+                sw.WriteLine($"{reg.Name} er checket ind d. {DateTime.Now}");
 
+                sw.Close();
+
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Hydac
 {
     public class Employe
     {
-        public static Employe[] employes = new Employe[]
+        public static Employe[] employes = 
             {
             new Employe { id = 1, name = "Anders Andersen" },
             new Employe { id = 2, name = "Birgitte Jensen" },
