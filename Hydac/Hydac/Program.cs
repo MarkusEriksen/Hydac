@@ -11,7 +11,7 @@ namespace Hydac
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Velkommen");
+                Console.WriteLine("Velkommen Hydac");
                 Console.ReadLine();
                 Console.Clear();
 
