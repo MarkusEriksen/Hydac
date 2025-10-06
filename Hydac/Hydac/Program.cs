@@ -7,11 +7,12 @@ namespace Hydac
     {
         static void Main(string[] args)
         {
-            Registrering reg = new Registrering();
+            Registration reg = new Registration();
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Velkommen Hydac");
+                Console.WriteLine("Velkommen til HYDAC\n");
+                Console.WriteLine("Tast ENTER for at checke ind eller checke ud");
                 Console.ReadLine();
                 Console.Clear();
 

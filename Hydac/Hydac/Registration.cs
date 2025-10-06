@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Hydac
 {
-    internal class Registrering
+    internal class Registration
     {
         //variabler der 'get' men kun kan 'set' via Register()
         public int Id { get; set; }
@@ -20,8 +20,10 @@ namespace Hydac
 
         public void Register()
         {
-            Console.WriteLine("Tast 1 Check ind");
-            Console.WriteLine("Tast 2 Check ud");
+            Console.WriteLine("Tast 1 for Check ind");
+            Console.WriteLine("Tast 2 for Check ud");
+            Console.WriteLine();
+            Console.WriteLine("Tast ENTER for at bekræfte dit valg");
             int inOut = int.Parse(Console.ReadLine());
             if (inOut == 1)
             {
@@ -42,6 +44,8 @@ namespace Hydac
             {
                 Console.WriteLine("Tast 1 for Medarbejder");
                 Console.WriteLine("Tast 2 for Gæst");
+                Console.WriteLine();
+                Console.WriteLine("Tast ENTER for at bekræfte dit valg");
 
                 int employeGuest = int.Parse(Console.ReadLine());
                 Console.Clear();
