@@ -40,9 +40,8 @@ namespace Hydac
                 {
                     Console.WriteLine("Tast 1 eller 2!!!");
                 }
-            }  
+            }
         }
-
    
         public void getEmployeGuest()
         {
@@ -82,15 +81,16 @@ namespace Hydac
                 if (emp.id == id)
                 {
                     name = emp.name;
-                    Console.WriteLine($"Velkommen til {emp.name} du er tjekket {_inOut} d. {DateTime.Now}");
+                    Console.WriteLine($"Velkommen til {name} du er tjekket {_inOut} d. {DateTime.Now}");
                     break;
                 }
-                else
-                {
-                    Console.WriteLine("Uglydigt medarbejder ID, prøv igen");
-                }
+            }
+            if (name == null)
+            {
+                Console.WriteLine("Ugyldigt medarbejder ID");
             }
             Console.ReadLine();
+
         }
     
     

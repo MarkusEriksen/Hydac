@@ -5,7 +5,6 @@ namespace Hydac
 {
     internal class Program
     {
-
         static void Main(string[] args)
         {
             Registration reg = new Registration();
@@ -20,6 +19,7 @@ namespace Hydac
                 reg.getInOut();
                 reg.getEmployeGuest();
                 reg.validate();
+                
 
                 StreamWriter sw = new StreamWriter("Data.txt", true);
                 sw.WriteLine($"{reg.name} du er tjekket {reg._inOut} d. {DateTime.Now}");
