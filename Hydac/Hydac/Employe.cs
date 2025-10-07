@@ -14,8 +14,9 @@ namespace Hydac
             new Employe { id = 2, name = "Birgitte Jensen" },
             new Employe { id = 3, name = "Carsten Nielsen" }
             };
-        public string name { get; private set; }
-        public int id { get; private set; }
+        public int id;
+        public string name;
+        public bool IsCheckedIn; // Add this line
     }
 
     

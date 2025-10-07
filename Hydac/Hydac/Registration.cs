@@ -20,51 +20,65 @@ namespace Hydac
 
         public void getInOut()
         {
-            Console.WriteLine("Tast 1 for Check ind");
-            Console.WriteLine("Tast 2 for Check ud");
-            Console.WriteLine();
-            Console.WriteLine("Tast ENTER for at bekræfte dit valg");
-
-            string input = Console.ReadLine();
-            if (int.TryParse(input, out int inOut))
+            while (true)
             {
-                if (inOut == 1)
+                Console.WriteLine("Tast 1 for Check ind");
+                Console.WriteLine("Tast 2 for Check ud");
+                Console.WriteLine();
+                Console.WriteLine("Tast ENTER for at bekræfte dit valg");
+
+                string input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
                 {
-                    this.inOut = true;
+                    Console.WriteLine("Input må ikke være tomt. Prøv igen.");
+                    continue;
                 }
-                else if (inOut == 2)
+                if (int.TryParse(input, out int inOut))
                 {
-                    this.inOut = false;
+                    if (inOut == 1)
+                    {
+                        this.inOut = true;
+                        break;
+                    }
+                    else if (inOut == 2)
+                    {
+                        this.inOut = false;
+                        break;
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("Tast 1 eller 2!!!");
-                }
+                Console.WriteLine("Tast 1 eller 2!!!");
             }
         }
    
         public void getEmployeGuest()
         {
-            Console.Clear();
-
-            Console.WriteLine("Tast 1 for Medarbejder");
-            Console.WriteLine("Tast 2 for Gæst");
-            Console.WriteLine();
-            Console.WriteLine("Tast ENTER for at bekræfte dit valg");
-
-            int employeGuest = int.Parse(Console.ReadLine());
-            Console.Clear();
-
-            if (employeGuest == 1)
+            while (true)
             {
-                this.employeGuest = true;
-            }
-            else if (employeGuest == 2)
-            {
-                this.employeGuest = false;
-            }
-            else
-            {
+                Console.Clear();
+                Console.WriteLine("Tast 1 for Medarbejder");
+                Console.WriteLine("Tast 2 for Gæst");
+                Console.WriteLine();
+                Console.WriteLine("Tast ENTER for at bekræfte dit valg");
+
+                string input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Input må ikke være tomt. Prøv igen.");
+                    continue;
+                }
+                if (int.TryParse(input, out int employeGuest))
+                {
+                    if (employeGuest == 1)
+                    {
+                        this.employeGuest = true;
+                        break;
+                    }
+                    else if (employeGuest == 2)
+                    {
+                        this.employeGuest = false;
+                        break;
+                    }
+                }
                 Console.WriteLine("Tast 1 eller 2!!!");
             }
             Console.Clear();
@@ -72,25 +86,55 @@ namespace Hydac
 
         public void validate()
         {
-            Console.Write("Tast medarbejder ID: ");
-            id = int.Parse(Console.ReadLine());
+            if (!employeGuest)
+            {
+                Console.WriteLine("Gæstefunktion er ikke implementeret endnu.");
+                Console.ReadLine();
+                return;
+            }
 
-            //For hver medarbejder(e) i employe arrayet tjekker vi om det indtastede id(id) == et defineret medarbejder id(e.id). Hvis ja så print navn. 
+            while (true)
+            {
+                Console.Write("Tast medarbejder ID: ");
+                string input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Input må ikke være tomt. Prøv igen.");
+                    continue;
+                }
+                if (int.TryParse(input, out id))
+                {
+                    break;
+                }
+                Console.WriteLine("Ugyldigt ID format. Prøv igen.");
+            }
+
             foreach (Employe emp in Employe.employes)
             {
                 if (emp.id == id)
                 {
                     name = emp.name;
-                    Console.WriteLine($"Velkommen til {name} du er tjekket {_inOut} d. {DateTime.Now}");
-                    break;
+
+                    // Check om medarbejderen allerede er checket ind
+                    if (inOut && emp.IsCheckedIn)
+                    {
+                        Console.WriteLine($"Medarbejder {name} er allerede checket ind.");
+                    }
+                    else if (!inOut && !emp.IsCheckedIn)
+                    {
+                        Console.WriteLine($"Medarbejder {name} er allerede checket ud.");
+                    }
+                    else
+                    {
+                        emp.IsCheckedIn = inOut;
+                        Console.WriteLine($"Velkommen til {name} du er tjekket {_inOut} d. {DateTime.Now}");
+                    }
+                    Console.ReadLine();
+                    return;
                 }
             }
-            if (name == null)
-            {
-                Console.WriteLine("Ugyldigt medarbejder ID");
-            }
+            Console.WriteLine("Ugyldigt medarbejder ID");
             Console.ReadLine();
-
         }
     
     
