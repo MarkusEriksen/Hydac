@@ -14,11 +14,11 @@ namespace Hydac
         public int id;
         public string name;
         public bool inOut;
-        public bool employeGuest;
+        public bool employeeGuest;
         public string _inOut => inOut ? "ind" : "ud";
 
-
-        public void getInOut()
+        //Metode til at vælge check ind eller check ud
+        public void GetInOut()
         {
             while (true)
             {
@@ -27,12 +27,14 @@ namespace Hydac
                 Console.WriteLine();
                 Console.WriteLine("Tast ENTER for at bekræfte dit valg");
 
+                //Tjekker om input er tomt
                 string input = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(input))
                 {
                     Console.WriteLine("Input må ikke være tomt. Prøv igen.");
                     continue;
                 }
+                //Forsøger at parse input til et tal
                 if (int.TryParse(input, out int inOut))
                 {
                     if (inOut == 1)
@@ -49,8 +51,8 @@ namespace Hydac
                 Console.WriteLine("Tast 1 eller 2!!!");
             }
         }
-   
-        public void getEmployeGuest()
+        // Metode til at vælge om det er medarbejder eller gæst
+        public void GetEmployeeGuest()
         {
             while (true)
             {
@@ -61,21 +63,23 @@ namespace Hydac
                 Console.WriteLine("Tast ENTER for at bekræfte dit valg");
 
                 string input = Console.ReadLine();
+                // Tjekker om input er tomt
                 if (string.IsNullOrWhiteSpace(input))
                 {
                     Console.WriteLine("Input må ikke være tomt. Prøv igen.");
                     continue;
                 }
-                if (int.TryParse(input, out int employeGuest))
+                // Forsøger at parse input til et tal
+                if (int.TryParse(input, out int employeeGuest))
                 {
-                    if (employeGuest == 1)
+                    if (employeeGuest == 1)
                     {
-                        this.employeGuest = true;
+                        this.employeeGuest = true;
                         break;
                     }
-                    else if (employeGuest == 2)
+                    else if (employeeGuest == 2)
                     {
-                        this.employeGuest = false;
+                        this.employeeGuest = false;
                         break;
                     }
                 }
@@ -84,15 +88,18 @@ namespace Hydac
             Console.Clear();
         }
 
-        public void validate()
+        // Metode til at validere medarbejderens ID og status
+        public void Validate()
         {
-            if (!employeGuest)
+            //Hvis gæst vælges gives nedenstående besked
+            if (!employeeGuest)
             {
                 Console.WriteLine("Gæstefunktion er ikke implementeret endnu.");
                 Console.ReadLine();
                 return;
             }
 
+            // Loop indtil gyldigt medarbejder ID er indtastet
             while (true)
             {
                 Console.Write("Tast medarbejder ID: ");
@@ -109,13 +116,14 @@ namespace Hydac
                 Console.WriteLine("Ugyldigt ID format. Prøv igen.");
             }
 
-            foreach (Employe emp in Employe.employes)
+            // Tjekker om ID findes i listen af medarbejdere
+            foreach (Employee emp in Employee.employes)
             {
                 if (emp.id == id)
                 {
                     name = emp.name;
 
-                    // Check om medarbejderen allerede er checket ind
+                    // Check om medarbejderen allerede er checket ind eller checket ud
                     if (inOut && emp.IsCheckedIn)
                     {
                         Console.WriteLine($"Medarbejder {name} er allerede checket ind.");
@@ -126,6 +134,7 @@ namespace Hydac
                     }
                     else
                     {
+                        // Opdater medarbejderens status til checket ind eller checket ud
                         emp.IsCheckedIn = inOut;
                         Console.WriteLine($"Velkommen til {name} du er tjekket {_inOut} d. {DateTime.Now}");
                     }
@@ -133,6 +142,7 @@ namespace Hydac
                     return;
                 }
             }
+            // Hvis ID ikke findes i listen
             Console.WriteLine("Ugyldigt medarbejder ID");
             Console.ReadLine();
         }
