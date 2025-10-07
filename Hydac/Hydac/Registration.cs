@@ -14,83 +14,137 @@ namespace Hydac
         public int id;
         public string name;
         public bool inOut;
-        public bool employeGuest;
+        public bool employeeGuest;
         public string _inOut => inOut ? "ind" : "ud";
 
-
-        public void getInOut()
+        //Metode til at vælge check ind eller check ud
+        public void GetInOut()
         {
-            Console.WriteLine("Tast 1 for Check ind");
-            Console.WriteLine("Tast 2 for Check ud");
-            Console.WriteLine();
-            Console.WriteLine("Tast ENTER for at bekræfte dit valg");
-
-            string input = Console.ReadLine();
-            if (int.TryParse(input, out int inOut))
+            while (true)
             {
-                if (inOut == 1)
+                Console.WriteLine("Tast 1 for Check ind");
+                Console.WriteLine("Tast 2 for Check ud");
+                Console.WriteLine();
+                Console.WriteLine("Tast ENTER for at bekræfte dit valg");
+
+                //Tjekker om input er tomt
+                string input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
                 {
-                    this.inOut = true;
+                    Console.WriteLine("Input må ikke være tomt. Prøv igen.");
+                    continue;
                 }
-                else if (inOut == 2)
+                //Forsøger at parse input til et tal
+                if (int.TryParse(input, out int inOut))
                 {
-                    this.inOut = false;
+                    if (inOut == 1)
+                    {
+                        this.inOut = true;
+                        break;
+                    }
+                    else if (inOut == 2)
+                    {
+                        this.inOut = false;
+                        break;
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("Tast 1 eller 2!!!");
-                }
+                Console.WriteLine("Tast 1 eller 2!!!");
             }
         }
-   
-        public void getEmployeGuest()
+        // Metode til at vælge om det er medarbejder eller gæst
+        public void GetEmployeeGuest()
         {
-            Console.Clear();
-
-            Console.WriteLine("Tast 1 for Medarbejder");
-            Console.WriteLine("Tast 2 for Gæst");
-            Console.WriteLine();
-            Console.WriteLine("Tast ENTER for at bekræfte dit valg");
-
-            int employeGuest = int.Parse(Console.ReadLine());
-            Console.Clear();
-
-            if (employeGuest == 1)
+            while (true)
             {
-                this.employeGuest = true;
-            }
-            else if (employeGuest == 2)
-            {
-                this.employeGuest = false;
-            }
-            else
-            {
+                Console.Clear();
+                Console.WriteLine("Tast 1 for Medarbejder");
+                Console.WriteLine("Tast 2 for Gæst");
+                Console.WriteLine();
+                Console.WriteLine("Tast ENTER for at bekræfte dit valg");
+
+                string input = Console.ReadLine();
+                // Tjekker om input er tomt
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Input må ikke være tomt. Prøv igen.");
+                    continue;
+                }
+                // Forsøger at parse input til et tal
+                if (int.TryParse(input, out int employeeGuest))
+                {
+                    if (employeeGuest == 1)
+                    {
+                        this.employeeGuest = true;
+                        break;
+                    }
+                    else if (employeeGuest == 2)
+                    {
+                        this.employeeGuest = false;
+                        break;
+                    }
+                }
                 Console.WriteLine("Tast 1 eller 2!!!");
             }
             Console.Clear();
         }
 
-        public void validate()
+        // Metode til at validere medarbejderens ID og status
+        public void Validate()
         {
-            Console.Write("Tast medarbejder ID: ");
-            id = int.Parse(Console.ReadLine());
+            //Hvis gæst vælges gives nedenstående besked
+            if (!employeeGuest)
+            {
+                Console.WriteLine("Gæstefunktion er ikke implementeret endnu.");
+                Console.ReadLine();
+                return;
+            }
 
-            //For hver medarbejder(e) i employe arrayet tjekker vi om det indtastede id(id) == et defineret medarbejder id(e.id). Hvis ja så print navn. 
-            foreach (Employe emp in Employe.employes)
+            // Loop indtil gyldigt medarbejder ID er indtastet
+            while (true)
+            {
+                Console.Write("Tast medarbejder ID: ");
+                string input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Input må ikke være tomt. Prøv igen.");
+                    continue;
+                }
+                if (int.TryParse(input, out id))
+                {
+                    break;
+                }
+                Console.WriteLine("Ugyldigt ID format. Prøv igen.");
+            }
+
+            // Tjekker om ID findes i listen af medarbejdere
+            foreach (Employee emp in Employee.employes)
             {
                 if (emp.id == id)
                 {
                     name = emp.name;
-                    Console.WriteLine($"Velkommen til {name} du er tjekket {_inOut} d. {DateTime.Now}");
-                    break;
+
+                    // Check om medarbejderen allerede er checket ind eller checket ud
+                    if (inOut && emp.IsCheckedIn)
+                    {
+                        Console.WriteLine($"Medarbejder {name} er allerede checket ind.");
+                    }
+                    else if (!inOut && !emp.IsCheckedIn)
+                    {
+                        Console.WriteLine($"Medarbejder {name} er allerede checket ud.");
+                    }
+                    else
+                    {
+                        // Opdater medarbejderens status til checket ind eller checket ud
+                        emp.IsCheckedIn = inOut;
+                        Console.WriteLine($"Velkommen til {name} du er tjekket {_inOut} d. {DateTime.Now}");
+                    }
+                    Console.ReadLine();
+                    return;
                 }
             }
-            if (name == null)
-            {
-                Console.WriteLine("Ugyldigt medarbejder ID");
-            }
+            // Hvis ID ikke findes i listen
+            Console.WriteLine("Ugyldigt medarbejder ID");
             Console.ReadLine();
-
         }
     
     

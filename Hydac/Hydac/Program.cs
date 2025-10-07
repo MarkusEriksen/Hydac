@@ -7,7 +7,9 @@ namespace Hydac
     {
         static void Main(string[] args)
         {
+            //Opretter et nyt Registration-objekt, som håndterer check ind og check ud
             Registration reg = new Registration();
+            //Programmet kører indtil det stoppes manuelt
             while (true)
             {
                 Console.Clear();
@@ -16,14 +18,14 @@ namespace Hydac
                 Console.ReadLine();
                 Console.Clear();
 
-                reg.getInOut();
-                reg.getEmployeGuest();
-                reg.validate();
-                
+                //Kalder metoder i Registration-klassen
+                reg.GetInOut();
+                reg.GetEmployeeGuest();
+                reg.Validate();
 
+                // Åbner en StreamWriter, skriver en linje og lukker ned igen
                 StreamWriter sw = new StreamWriter("Data.txt", true);
                 sw.WriteLine($"{reg.name} du er tjekket {reg._inOut} d. {DateTime.Now}");
-
                 sw.Close();
 
             }
