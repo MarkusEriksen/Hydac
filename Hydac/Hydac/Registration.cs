@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Hydac
 {
-    internal class Registration
+    public class Registration
     {
         public int id;
         public string name;
@@ -146,16 +146,5 @@ namespace Hydac
             Console.WriteLine("Ugyldigt medarbejder ID");
             Console.ReadLine();
         }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     }
 }
