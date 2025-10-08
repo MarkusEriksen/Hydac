@@ -15,7 +15,7 @@ namespace HydacUnitTest
             string expectedName = "Anders Madsen";
             var employee = Employee.employes[0];
 
-            // Simulate check-in
+            // Simulere check-in
             employee.IsCheckedIn = false;
             registration.id = employeeId;
             registration.name = expectedName;
@@ -32,11 +32,11 @@ namespace HydacUnitTest
                 Assert.Fail("Employee should not be already checked in.");
             }
 
-            // Try to check in again (should fail)
+            // Prøv at checke in igen (skulle fejle)
             bool checkedInAgain = employee.IsCheckedIn;
             Assert.IsTrue(checkedInAgain, "Second check-in should fail (already checked in).");
 
-            // Simulate check-out
+            // Simulere chech ud
             registration.inOut = false;
             if (employee.IsCheckedIn)
             {
