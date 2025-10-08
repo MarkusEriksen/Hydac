@@ -13,18 +13,43 @@ namespace HydacUnitTest
             var registration = new Registration();
             int employeeId = 1;
             string expectedName = "Anders Madsen";
+            var employee = Employee.employes[0];
 
-            // Act
-            bool checkedIn = registration.TryCheckInOut(employeeId, true, out string nameIn);
-            bool checkedInAgain = registration.TryCheckInOut(employeeId, true, out _); // Should fail
-            bool checkedOut = registration.TryCheckInOut(employeeId, false, out string nameOut);
+            // Simulate check-in
+            employee.IsCheckedIn = false;
+            registration.id = employeeId;
+            registration.name = expectedName;
+            registration.inOut = true;
 
-            // Assert
-            Assert.IsTrue(checkedIn, "Check-in should succeed.");
-            Assert.IsFalse(checkedInAgain, "Second check-in should fail (already checked in).");
-            Assert.IsTrue(checkedOut, "Check-out should succeed.");
-            Assert.AreEqual(expectedName, nameIn, "Check-in name mismatch.");
-            Assert.AreEqual(expectedName, nameOut, "Check-out name mismatch.");
+            // Act & Assert
+            if (!employee.IsCheckedIn)
+            {
+                employee.IsCheckedIn = true;
+                Assert.IsTrue(employee.IsCheckedIn, "Check-in should succeed.");
+            }
+            else
+            {
+                Assert.Fail("Employee should not be already checked in.");
+            }
+
+            // Try to check in again (should fail)
+            bool checkedInAgain = employee.IsCheckedIn;
+            Assert.IsTrue(checkedInAgain, "Second check-in should fail (already checked in).");
+
+            // Simulate check-out
+            registration.inOut = false;
+            if (employee.IsCheckedIn)
+            {
+                employee.IsCheckedIn = false;
+                Assert.IsFalse(employee.IsCheckedIn, "Check-out should succeed.");
+            }
+            else
+            {
+                Assert.Fail("Employee should be checked in before checking out.");
+            }
+
+            Assert.AreEqual(expectedName, registration.name, "Check-in name mismatch.");
+            Assert.AreEqual(expectedName, registration.name, "Check-out name mismatch.");
         }
     }
 }

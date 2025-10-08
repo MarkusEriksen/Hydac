@@ -146,31 +146,5 @@ namespace Hydac
             Console.WriteLine("Ugyldigt medarbejder ID");
             Console.ReadLine();
         }
-
-        // Add this method to support unit testing
-        public bool TryCheckInOut(int employeeId, bool checkIn, out string employeeName)
-        {
-            employeeName = null;
-            var emp = Employee.employes.FirstOrDefault(e => e.id == employeeId);
-            if (emp == null)
-                return false;
-
-            employeeName = emp.name;
-
-            if (checkIn)
-            {
-                if (emp.IsCheckedIn)
-                    return false; // Already checked in
-                emp.IsCheckedIn = true;
-                return true;
-            }
-            else
-            {
-                if (!emp.IsCheckedIn)
-                    return false; // Already checked out
-                emp.IsCheckedIn = false;
-                return true;
-            }
-        }
     }
 }
